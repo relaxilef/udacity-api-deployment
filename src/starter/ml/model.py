@@ -3,6 +3,9 @@ from sklearn.linear_model import LogisticRegression
 
 import os
 import pickle
+import pandas as pd
+
+import numpy as np
 
 from definitions import ROOT_DIR
 
@@ -27,8 +30,8 @@ def save_model(model: object, model_name: str):
         model (object): Model object.
         model_name (str): File name of the model.
     """
-    with open(os.path.join(ROOT_DIR, "model", model_name), "wb") as f:
-        pickle.dump(model, f)
+    with open(os.path.join(ROOT_DIR, "model", model_name), "wb") as file:
+        pickle.dump(model, file)
 
 
 # Optional: implement hyperparameter tuning.
@@ -79,7 +82,7 @@ def inference(model, X):
 
     Inputs
     ------
-    model : ???
+    model : sklearn.linear_model.LogisticRegression
         Trained machine learning model.
     X : np.array
         Data used for prediction.
@@ -88,4 +91,30 @@ def inference(model, X):
     preds : np.array
         Predictions from the model.
     """
-    pass
+    return model.predict(X)
+
+
+def compute_slice_metrics(X_test, y_test, y_pred):
+    """Compute slice metrics.
+    """
+    cat_features = X_test.select_dtypes(object).columns
+
+    results = {}
+
+    for cat_feat in cat_features:
+        results[cat_feat] = {}
+
+        for c in X_test[cat_feat].unique():
+
+            mask = X_test[cat_feat] == c
+            y_test_slice = y_test[mask]
+            y_pred_slice = y_pred[mask]
+
+            precision, recall, fbeta = compute_model_metrics(y_test_slice, y_pred_slice)
+
+            results[cat_feat][c] = {
+                "precision": precision,
+                "recall": recall,
+                "fbeta": fbeta,
+            }
+    return results
