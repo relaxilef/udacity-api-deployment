@@ -1,4 +1,34 @@
 from sklearn.metrics import fbeta_score, precision_score, recall_score
+from sklearn.linear_model import LogisticRegression
+
+import os
+import pickle
+
+from definitions import ROOT_DIR
+
+
+def load_model(model_name: str):
+    """Load the model.
+
+    Args:
+        model_name (str): File name of the model.
+
+    Returns:
+        object: Model.
+    """
+    with open(os.path.join(ROOT_DIR, "model", model_name), "rb") as file:
+        return pickle.load(file)
+
+
+def save_model(model: object, model_name: str):
+    """Save the model.
+
+    Args:
+        model (object): Model object.
+        model_name (str): File name of the model.
+    """
+    with open(os.path.join(ROOT_DIR, "model", model_name), "wb") as f:
+        pickle.dump(model, f)
 
 
 # Optional: implement hyperparameter tuning.
@@ -17,8 +47,9 @@ def train_model(X_train, y_train):
     model
         Trained machine learning model.
     """
-
-    pass
+    model = LogisticRegression(max_iter=10000)
+    model.fit(X_train, y_train)
+    return model
 
 
 def compute_model_metrics(y, preds):
@@ -44,7 +75,7 @@ def compute_model_metrics(y, preds):
 
 
 def inference(model, X):
-    """ Run model inferences and return the predictions.
+    """Run model inferences and return the predictions.
 
     Inputs
     ------
