@@ -1,8 +1,9 @@
+import json
 import os
 import pandas as pd
 
 from starter.ml.data import process_data
-from starter.ml.model import load_model, inference, compute_slice_metrics
+from starter.ml.model import load_model, compute_slice_metrics
 
 from definitions import ROOT_DIR
 
@@ -35,8 +36,10 @@ def main():
     )
 
     y_pred = model.predict(X_test)
-    result = compute_slice_metrics(X_test, y_test, y_pred)
-    print(result)
+    result = compute_slice_metrics(data_test, y_test, y_pred)
+    
+    with open(os.path.join(ROOT_DIR, "data/all_slice_metrics.json"), mode="w", encoding="utf-8") as file:
+        json.dump(result, file, indent=2)
 
 
 

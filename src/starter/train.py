@@ -2,7 +2,7 @@
 from sklearn.model_selection import train_test_split
 
 from starter.ml.data import process_data
-from starter.ml.model import train_model, save_model, compute_model_metrics, compute_slice_metrics
+from starter.ml.model import train_model, save_model
 
 # Add the necessary imports for the starter code.
 import pandas as pd
@@ -20,8 +20,8 @@ if __name__ == "__main__":
 
     data_train, data_test = train_test_split(data, test_size=0.20)
 
-    data_train.to_csv(os.path.join(ROOT_DIR, "data/data_train.csv"))
-    data_test.to_csv(os.path.join(ROOT_DIR, "data/data_test.csv"))
+    data_train.to_csv(os.path.join(ROOT_DIR, "data/data_train.csv"), index=False)
+    data_test.to_csv(os.path.join(ROOT_DIR, "data/data_test.csv"), index=False)
 
     cat_features = [
         "workclass",
