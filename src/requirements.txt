@@ -1,8 +1,6 @@
-numpy
-pandas
-scikit-learn
-pytest
-requests
-fastapi
-uvicorn
-gunicorn
+fastapi==0.89.1
+numpy==1.23.5
+pandas==1.5.3
+pytest==7.2.1
+scikit_learn==1.2.1
+setuptools==66.0.0
