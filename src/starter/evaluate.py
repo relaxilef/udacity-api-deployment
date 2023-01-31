@@ -13,12 +13,12 @@ def main():
     cat_features = [
         "workclass",
         "education",
-        "marital-status",
+        "marital_status",
         "occupation",
         "relationship",
         "race",
         "sex",
-        "native-country",
+        "native_country",
     ]
 
     data_test = pd.read_csv(os.path.join(ROOT_DIR, "data/data_test.csv"))
@@ -45,7 +45,6 @@ def main():
 
     with open(os.path.join(ROOT_DIR, "data/slice_output.txt"), mode="w", encoding="utf-8") as file:
         json.dump(model_metrics, file, indent=2)
-
 
 
 if __name__ == "__main__":

@@ -16,7 +16,7 @@ if __name__ == "__main__":
 
     df_obj = data.select_dtypes(["object"])
     data[df_obj.columns] = df_obj.apply(lambda x: x.str.strip())
-    data = data.rename(columns={col: col.strip() for col in data.columns})
+    data = data.rename(columns={col: col.replace("-", "_").strip() for col in data.columns})
 
     data_train, data_test = train_test_split(data, test_size=0.20)
 
@@ -26,12 +26,12 @@ if __name__ == "__main__":
     cat_features = [
         "workclass",
         "education",
-        "marital-status",
+        "marital_status",
         "occupation",
         "relationship",
         "race",
         "sex",
-        "native-country",
+        "native_country",
     ]
     X_train, y_train, encoder, label_binarizer = process_data(
         data_train,

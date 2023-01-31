@@ -46,10 +46,11 @@ def process_data(
         Trained LabelBinarizer if training is True, otherwise returns the binarizer
         passed in.
     """
-
+    y = None
     if label is not None:
-        y = X[label]
-        X = X.drop([label], axis=1)
+        if label in X:
+            y = X[label]
+            X = X.drop([label], axis=1)
     else:
         y = np.array([])
 
