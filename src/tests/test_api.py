@@ -1,10 +1,5 @@
 import pytest
-import requests
 import json
-import subprocess
-import time
-import aiohttp
-import httpx
 
 from fastapi.testclient import TestClient
 
