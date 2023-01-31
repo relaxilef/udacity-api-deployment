@@ -1,9 +1,10 @@
 import json
 import os
 import pandas as pd
+from pprint import pprint
 
 from starter.ml.data import process_data
-from starter.ml.model import load_model, compute_slice_metrics
+from starter.ml.model import compute_model_metrics, load_model, compute_slice_metrics
 
 from definitions import ROOT_DIR
 
@@ -36,10 +37,14 @@ def main():
     )
 
     y_pred = model.predict(X_test)
-    result = compute_slice_metrics(data_test, y_test, y_pred)
-    
-    with open(os.path.join(ROOT_DIR, "data/all_slice_metrics.json"), mode="w", encoding="utf-8") as file:
-        json.dump(result, file, indent=2)
+
+    model_metrics = compute_model_metrics(y_test, y_pred)
+    pprint(model_metrics)
+    model_slice_metrics = compute_slice_metrics(data_test, y_test, y_pred)
+    pprint(model_slice_metrics)
+
+    with open(os.path.join(ROOT_DIR, "data/slice_output.txt"), mode="w", encoding="utf-8") as file:
+        json.dump(model_metrics, file, indent=2)
 
 
 
