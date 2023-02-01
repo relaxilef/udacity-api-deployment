@@ -6,8 +6,6 @@ import pandas as pd
 
 import json
 
-import uvicorn
-
 from starter.inference import inference
 
 
@@ -64,7 +62,3 @@ def predict(inference_data: Data) -> dict:
     inference_df = pd.DataFrame(inference_json)
     result = list(int(e) for e in inference(inference_df))
     return {"result": result}
-
-
-if __name__ == "__main__":
-    uvicorn.run(app, host="127.0.0.1", port=5000, log_level="debug")
