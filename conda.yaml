@@ -1,8 +1,0 @@
-name: udacity-api-deployment
-channels:
-  - conda-forge
-  - defaults
-dependencies:
-  - python=3.10
-  - uvicorn
-  - pytest

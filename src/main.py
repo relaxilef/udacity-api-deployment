@@ -66,5 +66,5 @@ def predict(inference_data: Data) -> dict:
     return {"result": result}
 
 
-if __name__ == "__main__":
-    uvicorn.run(app)
+# if __name__ == "__main__":
+#     uvicorn.run(app)
