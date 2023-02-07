@@ -33,4 +33,4 @@ if __name__ == "__main__":
     status_code = request.status_code
 
     inference = request.json()["result"]
-    print(inference)
+    print
