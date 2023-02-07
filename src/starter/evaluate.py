@@ -38,13 +38,11 @@ def main():
 
     y_pred = model.predict(X_test)
 
-    model_metrics = compute_model_metrics(y_test, y_pred)
-    pprint(model_metrics)
-    model_slice_metrics = compute_slice_metrics(data_test, y_test, y_pred)
-    pprint(model_slice_metrics)
+    # model_metrics = compute_model_metrics(y_test, y_pred)
+    model_slice_metrics = compute_slice_metrics(data_test, y_test, y_pred, "education")
 
     with open(os.path.join(ROOT_DIR, "data/slice_output.txt"), mode="w", encoding="utf-8") as file:
-        json.dump(model_metrics, file, indent=2)
+        json.dump(model_slice_metrics, file, indent=2)
 
 
 if __name__ == "__main__":

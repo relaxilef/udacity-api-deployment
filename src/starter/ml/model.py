@@ -94,8 +94,9 @@ def inference(model, X):
     return model.predict(X)
 
 
-def compute_slice_metrics(X_test, y_test, y_pred):
-    """Compute slice metrics.
+def compute_all_slice_metrics(X_test, y_test, y_pred):
+    """
+    Compute slice metrics on the complete set.
     """
     cat_features = X_test.select_dtypes(object).columns
 
@@ -117,4 +118,26 @@ def compute_slice_metrics(X_test, y_test, y_pred):
                 "recall": recall,
                 "fbeta": fbeta,
             }
+    return results
+
+
+def compute_slice_metrics(X_test, y_test, y_pred, cat_feat):
+    """
+    Compute slice metrics on a single feature holding a fixed value.
+    """
+    results = {}
+
+    for c in X_test[cat_feat].unique():
+
+        mask = X_test[cat_feat] == c
+        y_test_slice = y_test[mask]
+        y_pred_slice = y_pred[mask]
+
+        precision, recall, fbeta = compute_model_metrics(y_test_slice, y_pred_slice)
+
+        results[c] = {
+            "precision": precision,
+            "recall": recall,
+            "fbeta": fbeta,
+        }
     return results
