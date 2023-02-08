@@ -2,6 +2,7 @@ import os
 import pytest
 import pandas as pd
 import numpy as np
+from pprint import pprint
 
 import sklearn
 from sklearn.model_selection import train_test_split
@@ -96,3 +97,37 @@ def test_inference_below(data_test):
 
     assert 0 in np.unique(y_pred)
     assert 1 in np.unique(y_pred)
+
+
+def test_inference_example_above():
+    """
+    Test the inference on an example above 50K salary.
+    """
+    headers = "age,workclass,fnlgt,education,education_num,marital_status,occupation,relationship,race,sex,capital_gain,capital_loss,hours_per_week,native_country,salary".split(",")
+    data = "33,Private,115496,Doctorate,16,Married-civ-spouse,Prof-specialty,Husband,White,Male,0,0,60,United-States,>50K".split(",")
+    
+    dictionary = {">50K": 0, "<=50K": 1}
+
+    X_test = {k: [v] for k, v in zip(headers, data)}
+    y_test = X_test.pop("salary")
+
+    y_pred = inference(X_test)
+
+    assert y_pred[0] == dictionary[y_test[0]]
+
+
+def test_inference_example_below():
+    """
+    Test the inference on an example below 50K salary.
+    """
+    headers = "age,workclass,fnlgt,education,education_num,marital_status,occupation,relationship,race,sex,capital_gain,capital_loss,hours_per_week,native_country,salary".split(",")
+    data = "52,Without-pay,198262,HS-grad,9,Married-civ-spouse,Adm-clerical,Wife,White,Female,0,0,30,United-States,<=50K".split(",")
+    
+    dictionary = {"<=50K": 0, ">50K": 1}
+
+    X_test = {k: [v] for k, v in zip(headers, data)}
+    y_test = X_test.pop("salary")
+
+    y_pred = inference(X_test)
+
+    assert y_pred[0] == dictionary[y_test[0]]

@@ -23,14 +23,12 @@ if __name__ == "__main__":
         }
 
     
-    URL = "http://127.0.0.1:8000/predict"
+    URL = "http://udacity-deploy-api.onrender.com/predict"
     request = requests.post(
         url=URL,
         json=content,
         timeout=600,
     )
 
-    status_code = request.status_code
-
-    inference = request.json()["result"]
-    print
+    print(f"Status Code: {request.status_code}")
+    print(f"Inference Result: {request.json()['result']}")
