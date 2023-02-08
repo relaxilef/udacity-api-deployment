@@ -106,6 +106,8 @@ def test_inference_example_above():
     headers = "age,workclass,fnlgt,education,education_num,marital_status,occupation,relationship,race,sex,capital_gain,capital_loss,hours_per_week,native_country,salary".split(",")
     data = "33,Private,115496,Doctorate,16,Married-civ-spouse,Prof-specialty,Husband,White,Male,0,0,60,United-States,>50K".split(",")
     
+    a = ".json"
+
     dictionary = {">50K": 0, "<=50K": 1}
 
     X_test = {k: [v] for k, v in zip(headers, data)}
@@ -123,6 +125,8 @@ def test_inference_example_below():
     headers = "age,workclass,fnlgt,education,education_num,marital_status,occupation,relationship,race,sex,capital_gain,capital_loss,hours_per_week,native_country,salary".split(",")
     data = "52,Without-pay,198262,HS-grad,9,Married-civ-spouse,Adm-clerical,Wife,White,Female,0,0,30,United-States,<=50K".split(",")
     
+    a = ".json"
+
     dictionary = {"<=50K": 0, ">50K": 1}
 
     X_test = {k: [v] for k, v in zip(headers, data)}
